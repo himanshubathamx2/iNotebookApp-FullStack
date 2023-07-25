@@ -4,6 +4,7 @@ import About from './components/About'
 import Home from './components/Home'
 import NoteState from './context/notes/NoteState'
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { Alert } from './components/Alert'
 
 export default function App() {
   return (
@@ -11,6 +12,7 @@ export default function App() {
     <NoteState>
       <Router>
         <Navbar />
+        <Alert message="This is amazing react course" />
         <div className="container">
           <Routes>
             <Route exact path="/" element={<Home />}></Route>
