@@ -14,7 +14,7 @@ const NoteState = (props) => {
       method: "GET",
       headers: {
         "Content-type": "application/json; charset=UTF-8",
-        "Authorization": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJzaGFpdGFuaVR1bm5hQGdtYWlsLmNvbSIsImlhdCI6MTY5MDMwNTg4OCwiZXhwIjoxNjkwMzIzODg4fQ.cIVE0mNjn0e2zi8JzhgfVRCJRdVaz31f-A4v5_8WNvsInGdu1cgRvJu8eIk1ciZwxdzElP0y9_JOVHHomkF79w"
+        "Authorization": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJzZXJlbmVAZ21haWwuY29tIiwiaWF0IjoxNjkwMzUyMTQ1LCJleHAiOjE2OTAzNzAxNDV9.8FAd9ye-rqi8ph0SfO_B8-tVlN2oHnRjMK_tv6JvwwmnBsy_g10v294xYSh0GCfy_Wj2N3ICRXMHABP_NFD2Pw"
       }
     });
     const json = await response.json();
@@ -29,17 +29,10 @@ const NoteState = (props) => {
       body: JSON.stringify({ title, description, tag }),
       headers: {
         "Content-type": "application/json; charset=UTF-8",
-        "Authorization": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJzaGFpdGFuaVR1bm5hQGdtYWlsLmNvbSIsImlhdCI6MTY5MDMwNTg4OCwiZXhwIjoxNjkwMzIzODg4fQ.cIVE0mNjn0e2zi8JzhgfVRCJRdVaz31f-A4v5_8WNvsInGdu1cgRvJu8eIk1ciZwxdzElP0y9_JOVHHomkF79w"
+        "Authorization": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJzZXJlbmVAZ21haWwuY29tIiwiaWF0IjoxNjkwMzUyMTQ1LCJleHAiOjE2OTAzNzAxNDV9.8FAd9ye-rqi8ph0SfO_B8-tVlN2oHnRjMK_tv6JvwwmnBsy_g10v294xYSh0GCfy_Wj2N3ICRXMHABP_NFD2Pw"
       }
     })
-    const note = {
-      "id": "a30bfecf-b3863b-4773-8551-c4ff3baefb3e",
-      "user": "shaitaniTunna@gmail.com",
-      "title": title,
-      "description": description,
-      "tag": tag,
-      "date": "2023-07-25T07:35:24.964+00:00"
-    };
+    const note = await response.json();
     setnotes(notes.concat(note));//concat returns an array whereas push updates an array
   }
 
@@ -49,7 +42,7 @@ const NoteState = (props) => {
       method: "DELETE",
       headers: {
         "Content-type": "application/json; charset=UTF-8",
-        "Authorization": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJzaGFpdGFuaVR1bm5hQGdtYWlsLmNvbSIsImlhdCI6MTY5MDMwNTg4OCwiZXhwIjoxNjkwMzIzODg4fQ.cIVE0mNjn0e2zi8JzhgfVRCJRdVaz31f-A4v5_8WNvsInGdu1cgRvJu8eIk1ciZwxdzElP0y9_JOVHHomkF79w"
+        "Authorization": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJzZXJlbmVAZ21haWwuY29tIiwiaWF0IjoxNjkwMzUyMTQ1LCJleHAiOjE2OTAzNzAxNDV9.8FAd9ye-rqi8ph0SfO_B8-tVlN2oHnRjMK_tv6JvwwmnBsy_g10v294xYSh0GCfy_Wj2N3ICRXMHABP_NFD2Pw"
       }
     })
     const text = response.text();
@@ -61,25 +54,25 @@ const NoteState = (props) => {
   const editNote = async (id, title, description, tag) => {
     //api call
     const response = await fetch(`${HOST}/notes/updatenote/${id}`, {
-      method: "POST",
+      method: "PUT",
       body: JSON.stringify({ title, description, tag }),
       headers: {
         "Content-type": "application/json; charset=UTF-8",
-        "Authorization": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJzaGFpdGFuaVR1bm5hQGdtYWlsLmNvbSIsImlhdCI6MTY5MDMwNTg4OCwiZXhwIjoxNjkwMzIzODg4fQ.cIVE0mNjn0e2zi8JzhgfVRCJRdVaz31f-A4v5_8WNvsInGdu1cgRvJu8eIk1ciZwxdzElP0y9_JOVHHomkF79w"
+        "Authorization": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJzZXJlbmVAZ21haWwuY29tIiwiaWF0IjoxNjkwMzUyMTQ1LCJleHAiOjE2OTAzNzAxNDV9.8FAd9ye-rqi8ph0SfO_B8-tVlN2oHnRjMK_tv6JvwwmnBsy_g10v294xYSh0GCfy_Wj2N3ICRXMHABP_NFD2Pw"
       }
     })
-    const json = response.json();
-
     //logic
-    for (let index = 0; index < notes.length; index++) {
-      const element = notes[index];
+    let newNotes = JSON.parse(JSON.stringify(notes));
+    for (let index = 0; index < newNotes.length; index++) {
+      const element = newNotes[index];
       if (element.id === id) {
-        element.title = title;
-        element.description = description;
-        element.tag = tag;
+        newNotes[index].title = title;
+        newNotes[index].description = description;
+        newNotes[index].tag = tag;
+        break;
       }
-
     }
+    setnotes(newNotes)
   }
 
   return (

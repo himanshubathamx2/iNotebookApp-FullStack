@@ -6,25 +6,27 @@ export const Notes = () => {
 
   const context = useContext(noteContext);
 
-  const { notes, getNotes } = context;
+  const { notes, getNotes, editNote } = context;
   useEffect(() => {
     getNotes();
     // eslint-disable-next-line
   }, [])
 
   const ref = useRef(null);
-  const [note, setNote] = useState({ etitle: "", edescription: "", etag: "" })
+  const refClose = useRef(null);
+  const [note, setNote] = useState({ id: "", etitle: "", edescription: "", etag: "" })
 
   const updateNote = (currentNote) => {
     ref.current.click();
-    setNote({ etitle: currentNote.title, edescription: currentNote.description, etag: currentNote.tag });
+    setNote({ id: currentNote.id, etitle: currentNote.title, edescription: currentNote.description, etag: currentNote.tag });
 
 
   }
 
   const handleClick = (e) => {
-    e.preventDefault();// to stop page reloading
     console.log("updating note", note)
+    editNote(note.id, note.etitle, note.edescription, note.etag);
+    refClose.current.click();
   }
 
   const onChange = (e) => {
@@ -62,7 +64,7 @@ export const Notes = () => {
               </form>
             </div>
             <div className="modal-footer">
-              <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+              <button ref={refClose} type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
               <button type="button" className="btn btn-primary" onClick={handleClick}>Update note</button>
             </div>
           </div>
@@ -71,6 +73,9 @@ export const Notes = () => {
 
       <div className="row my-3">
         <h2>Your notes</h2>
+        <div className="container mx-2">
+          {notes.length === 0 && 'No notes to display'}
+        </div>
         {notes.map((note) => {
           return <Noteitem key={note.id} updateNote={updateNote} note={note} />
         })}
