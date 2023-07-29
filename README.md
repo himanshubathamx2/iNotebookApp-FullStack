@@ -1,4 +1,6 @@
 # Getting Started with Create React App
+Backend is springboot. its has jwt module (fixed same username cant be created now, use exception handler to throw exceptions otherwise we will have default jwt access denied msg)
+Use .json postman for api  testing
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
