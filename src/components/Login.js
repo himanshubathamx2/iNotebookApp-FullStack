@@ -1,8 +1,10 @@
 import React, { useState } from 'react'
+import { useNavigate } from "react-router-dom";
 
 export const Login = () => {
 
   const [credentials, setCredentials] = useState({ email: "", password: "" });
+  let navigate = useNavigate();
 
   const onChange = (e) => {
     setCredentials({ ...credentials, [e.target.name]: e.target.value })
@@ -17,9 +19,16 @@ export const Login = () => {
         "Content-type": "application/json; charset=UTF-8"
       }
     })
-
     const json = await response.json();
-    console.log(json)
+    if (json.jwtToken && response.status === 200) {
+      localStorage.setItem('token', json.jwtToken);
+      navigate("/");
+    }
+    else {
+      alert("invcalid");
+    }
+
+
   }
 
   return (
