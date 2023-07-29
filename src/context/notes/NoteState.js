@@ -14,7 +14,7 @@ const NoteState = (props) => {
       method: "GET",
       headers: {
         "Content-type": "application/json; charset=UTF-8",
-        "Authorization": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJzZXJlbmVAZ21haWwuY29tIiwiaWF0IjoxNjkwNjE5NDI5LCJleHAiOjE2OTA2Mzc0Mjl9.LUhYLQgNRZftWomHEdOFAxNv-1Dmyi3X1NSskz5WwDvlEHz5SPBOw0jtIGFFmAEUe-P4OEO_CCn5oTAM3zHVrg"
+        "Authorization": `Bearer ${localStorage.getItem('token')}`
       }
     });
     const json = await response.json();
@@ -29,7 +29,7 @@ const NoteState = (props) => {
       body: JSON.stringify({ title, description, tag }),
       headers: {
         "Content-type": "application/json; charset=UTF-8",
-        "Authorization": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJzZXJlbmVAZ21haWwuY29tIiwiaWF0IjoxNjkwNjE5NDI5LCJleHAiOjE2OTA2Mzc0Mjl9.LUhYLQgNRZftWomHEdOFAxNv-1Dmyi3X1NSskz5WwDvlEHz5SPBOw0jtIGFFmAEUe-P4OEO_CCn5oTAM3zHVrg"
+        "Authorization": `Bearer ${localStorage.getItem('token')}`
       }
     })
     const note = await response.json();
@@ -42,7 +42,7 @@ const NoteState = (props) => {
       method: "DELETE",
       headers: {
         "Content-type": "application/json; charset=UTF-8",
-        "Authorization": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJzZXJlbmVAZ21haWwuY29tIiwiaWF0IjoxNjkwNjE5NDI5LCJleHAiOjE2OTA2Mzc0Mjl9.LUhYLQgNRZftWomHEdOFAxNv-1Dmyi3X1NSskz5WwDvlEHz5SPBOw0jtIGFFmAEUe-P4OEO_CCn5oTAM3zHVrg"
+        "Authorization": `Bearer ${localStorage.getItem('token')}`
       }
     })
     const text = response.text();
@@ -58,7 +58,7 @@ const NoteState = (props) => {
       body: JSON.stringify({ title, description, tag }),
       headers: {
         "Content-type": "application/json; charset=UTF-8",
-        "Authorization": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJzZXJlbmVAZ21haWwuY29tIiwiaWF0IjoxNjkwNjE5NDI5LCJleHAiOjE2OTA2Mzc0Mjl9.LUhYLQgNRZftWomHEdOFAxNv-1Dmyi3X1NSskz5WwDvlEHz5SPBOw0jtIGFFmAEUe-P4OEO_CCn5oTAM3zHVrg"
+        "Authorization": `Bearer ${localStorage.getItem('token')}`
       }
     })
     //logic
