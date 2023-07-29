@@ -1,7 +1,7 @@
 import React, { useState, useContext } from 'react'
 import noteContext from '../context/notes/noteContext';
 
-export const AddNote = () => {
+export const AddNote = (props) => {
   const context = useContext(noteContext)
   const { addNote } = context;
 
@@ -10,16 +10,17 @@ export const AddNote = () => {
     e.preventDefault();// to stop page reloading
     addNote(note.title, note.description, note.tag)
     setNote({ title: "", description: "", tag: "" })
+    props.showAlert('Added successfully', 'success');
   }
 
   const onChange = (e) => {
     setNote({ ...note, [e.target.name]: e.target.value })
   }
   return (
-    <div className="container my-3">
+    <div className="container ">
       <h2>Add a note</h2>
-      <form className='my-3'>
-        <div className="mb-3">
+      <form >
+        <div>
           <label htmlFor="title" className="form-label">Title</label>
           <input type="text" className="form-control" value={note.title} name="title" autoComplete='on' id="title" aria-describedby="emailHelp" onChange={onChange} />
         </div>
